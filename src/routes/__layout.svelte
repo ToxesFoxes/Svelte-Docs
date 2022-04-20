@@ -1,5 +1,124 @@
-<script>
-  import "../app.css";
+<script context="module">
 </script>
 
-<slot />
+<script>
+	import '../app.css';
+	import Sidebar from '$lib/components/Sidebar/Panel.svelte';
+	import SidebarToggle from '$lib/components/Sidebar/Toggle.svelte';
+	import AppHeader from '$lib/components/AppHeader.svelte';
+	import MobileToggle from '$lib/components/Sidebar/MobileToggle.svelte';
+	import LanguageSwitch from '$lib/components/Sidebar/LanguageSwitch.svelte';
+	import { update } from '$store/default_config';
+	import { get } from 'svelte/store';
+	import { loadStaticDocsFile } from '../lib/scripts/file_utils';
+	import { onMount } from 'svelte';
+	import { language, languages } from '$store/config';
+	import { theme, isDark } from '$store/default';
+	import ThemeSwitch from '$lib/components/ThemeSwitch.svelte';
+	let temp = {};
+	get(theme);
+	export async function load() {
+		return await update().then(() => {
+			get(languages);
+			get(language);
+			console.log(language);
+			$languages.forEach((lang, index) => {
+				loadStaticDocsFile(lang.path).then((data) => {
+					if (lang.code == $language) temp = JSON.parse(data.result).pages;
+				});
+			});
+		});
+	}
+	let ThemeSwitchComponent;
+	onMount(() => {
+		let isSysDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+		$isDark = $theme == 'system' ? (isSysDark ? true : false) : $theme == 'dark' ? true : false;
+	});
+	export let hidden = true;
+	console.log($theme);
+</script>
+
+<svelte:head>
+	<meta name="color-scheme" content={$theme == 'system' ? 'light dark' : $theme} />
+	<link rel="stylesheet" href={`/static/css/github-markdown-${$isDark ? 'dark' : 'light'}.css`} />
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Overpass" />
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Mono" />
+</svelte:head>
+
+<div class="app-layout flex flex-col w-full min-h-screen" class:dark={$isDark}>
+	<AppHeader bind:active={hidden}>
+		<SidebarToggle bind:active={hidden} slot="left-before" />
+	</AppHeader>
+	<Sidebar bind:active={hidden}>
+		<div class="mt-5 w-full text-center p-3 font-semibold text-xl border-b-2" slot="header">
+			<LanguageSwitch />
+			<ThemeSwitch bind:this={ThemeSwitchComponent} />
+			<h1>InnerCore v2.1 Docs</h1>
+		</div>
+		<div slot="links">
+			<!-- {#if $sidebar} -->
+			<!-- {#each pages as link} -->
+			<!-- {link.slug} -->
+			<!-- {/each} -->
+			<!-- {/if} -->
+		</div>
+	</Sidebar>
+	<MobileToggle bind:active={hidden} />
+	<main
+		id="main"
+		class="page-content w-full ease-in-out duration-300 items-center justify-center relative"
+		class:content_hidden={!hidden}
+		class:shrink-0={!hidden}
+	>
+		<slot />
+	</main>
+</div>
+
+<style type="less">
+	.app-layout {
+		transition: all .3s ease-in-out;
+		background-color: white;
+		&.dark {
+			background-color: #0d1117;
+		}
+	}
+	.page-content {
+		padding: 0;
+		margin: 62px 0;
+		left: 0;
+		overflow-x: hidden;
+		overflow-y: auto;
+		-webkit-overflow-scrolling: touch;
+		height: 100%;
+		margin-left: 300px;
+		max-width: calc(100% - 300px);
+		&.content_hidden {
+			margin-left: 0;
+			max-width: 100%;
+		}
+	}
+	@media (max-width: 768px) {
+		.page-content {
+			margin-left: 0;
+			max-width: 100%;
+			&.dark {
+				background-color: #161b22;
+			}
+		}
+	}
+	// #layout {
+	// 	height: 100vh;
+	// 	display: flex;
+
+	// 	#sidebar {
+	// 		width: 20%;
+	// 		overflow-y: auto;
+	// 	}
+
+	// 	& #main {
+	// 		flex: 1;
+	// 		padding: 0 20px 100px 20px;
+	// 		overflow-y: auto;
+	// 	}
+	// }
+</style>

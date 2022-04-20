@@ -1,0 +1,12 @@
+{
+	"language": "en",
+	"pages": [
+		{
+			"slug": "test-page-markdown",
+			"title": "Testing markdown",
+			"description": "This is a test page",
+			"keywords": ["markdown", "test", "page", "aaaa"],
+			"file": "test.md"
+		}
+	]
+}

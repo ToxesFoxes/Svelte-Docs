@@ -1,7 +1,11 @@
 module.exports = {
-  content: ['./src/**/*.{html,js,svelte,ts}'],
+  content: ['./src/**/*.{html,js,svelte,ts,md}'],
   theme: {
-    extend: {},
+    extend: {
+      animation: {
+        'spin-slow': 'spin 3s linear infinite',
+      }
+    }
   },
   plugins: [],
 }

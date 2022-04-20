@@ -1,10 +1,54 @@
-import adapter from '@sveltejs/adapter-auto';
-
+import { mdsvex } from 'mdsvex'
+import preprocess from 'svelte-preprocess'
+import mdsvexConfig from './mdsvex.config.js'
+import adapter from '@sveltejs/adapter-static'
+import { searchForWorkspaceRoot } from 'vite'
+import path from "path"
+import { builtinModules } from 'module'
+import { less } from 'svelte-preprocess-less'
+// import env
+import { env } from 'process'
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
-	kit: {
-		adapter: adapter()
-	}
-};
+	extensions: ['.svelte', ...mdsvexConfig.extensions],
 
-export default config;
+	kit: {
+		paths: {
+			base: env['VITE_APP_URL'] || "",
+		},
+		adapter: adapter({
+			pages: 'build',
+			assets: 'build',
+			fallback: null
+		}),
+		vite: {
+			optimizeDeps: {
+				include: ["highlight.js", "highlight.js/lib/core"],
+				exclude: builtinModules,
+			},
+			server: {
+				fs: {
+					// Allow serving files from one level up to the project root
+					allow: [
+						searchForWorkspaceRoot(process.cwd()),
+					]
+				}
+			},
+			resolve: {
+				alias: {
+					"$SD": path.resolve("./static-docs/"),
+					"$store": path.resolve("./src/stores/"),
+					"$lib": path.resolve("./src/lib/"),
+				}
+			}
+		}
+	},
+
+	preprocess: [
+		less(),
+		preprocess(),
+		mdsvex(mdsvexConfig)
+	]
+}
+
+export default config

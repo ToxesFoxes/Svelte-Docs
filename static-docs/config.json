@@ -1,0 +1,18 @@
+{
+	"default_language": 0,
+	"default_theme": 0,
+	"themes": ["light", "dark"],
+	"languages": [
+		{
+			"code": "en",
+			"name": "English",
+			"path": "en/pages.json"
+		},
+		{
+			"code": "ru",
+			"name": "Русский",
+			"path": "ru/pages.json"
+		}
+	],
+	"maxDepth": 3
+}
