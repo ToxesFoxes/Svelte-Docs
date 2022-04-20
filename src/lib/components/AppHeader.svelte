@@ -53,7 +53,7 @@
 				font-size: 16px;
 				white-space: nowrap;
 				line-height: 40px;
-				color: white;
+				color: black;
 				text-decoration: none;
 				font-weight: bold;
 				position: relative;
@@ -66,6 +66,9 @@
 		&.dark {
 			background-color: #161b22;
 			border-color: rgb(82, 82, 82);
+			.app-header-name {
+				color: white;
+			}
 		}
 	}
 	@media (max-width: 768px) {

@@ -4,7 +4,7 @@
 </script>
 
 <div
-	class="sidebar flex flex-row-reverse top-0 left-0 bottom-0 h-full duration-300 sm:hide ease-in-out fixed"
+	class="sidebar flex flex-row-reverse top-0 left-0 bottom-0 h-full duration-300 ease-in-out fixed"
 	class:unhide={active}
 	class:hide={!active}
 	class:dark={$isDark}
@@ -27,6 +27,7 @@
 		z-index: 20;
 		align-self: flex-start;
 		top: 62px;
+		background-color: white;
 		border-right: 1px solid lightgray;
 		&.unhide {
 			transform: translateX(0);
@@ -36,10 +37,13 @@
 		}
 		&.dark {
 			background-color: #0d1117;
+			border-color: rgb(82, 82, 82);
+		}
+		.sidebar-header {
+			border-color: rgb(82, 82, 82);
 		}
 		.sidebar-content {
 			min-width: 300px;
-			border-bottom: 1px solid white;
 		}
 		.sidebar-links {
 			height: 100vh;

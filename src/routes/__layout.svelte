@@ -3,18 +3,24 @@
 
 <script>
 	import '../app.css';
+
+	// Components
 	import Sidebar from '$lib/components/Sidebar/Panel.svelte';
 	import SidebarToggle from '$lib/components/Sidebar/Toggle.svelte';
 	import AppHeader from '$lib/components/AppHeader.svelte';
 	import MobileToggle from '$lib/components/Sidebar/MobileToggle.svelte';
-	import LanguageSwitch from '$lib/components/Sidebar/LanguageSwitch.svelte';
+	import SidebarHeader from '$lib/components/Sidebar/Header.svelte';
+	import ThemeSwitch from '$lib/components/Theme/Switch.svelte';
+
+	// Store
 	import { update } from '$store/default_config';
 	import { get } from 'svelte/store';
 	import { loadStaticDocsFile } from '../lib/scripts/file_utils';
 	import { onMount } from 'svelte';
 	import { language, languages } from '$store/config';
-	import { theme, isDark } from '$store/default';
-	import ThemeSwitch from '$lib/components/ThemeSwitch.svelte';
+	import { theme, isDark, sidebarState } from '$store/default';
+
+	// Script
 	let temp = {};
 	get(theme);
 	export async function load() {
@@ -29,13 +35,10 @@
 			});
 		});
 	}
-	let ThemeSwitchComponent;
 	onMount(() => {
 		let isSysDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 		$isDark = $theme == 'system' ? (isSysDark ? true : false) : $theme == 'dark' ? true : false;
 	});
-	export let hidden = true;
-	console.log($theme);
 </script>
 
 <svelte:head>
@@ -46,15 +49,12 @@
 </svelte:head>
 
 <div class="app-layout flex flex-col w-full min-h-screen" class:dark={$isDark}>
-	<AppHeader bind:active={hidden}>
-		<SidebarToggle bind:active={hidden} slot="left-before" />
+	<AppHeader bind:active={$sidebarState}>
+		<SidebarToggle bind:active={$sidebarState} slot="left-before" />
+		<ThemeSwitch slot="right-after" />
 	</AppHeader>
-	<Sidebar bind:active={hidden}>
-		<div class="mt-5 w-full text-center p-3 font-semibold text-xl border-b-2" slot="header">
-			<LanguageSwitch />
-			<ThemeSwitch bind:this={ThemeSwitchComponent} />
-			<h1>InnerCore v2.1 Docs</h1>
-		</div>
+	<Sidebar bind:active={$sidebarState}>
+		<SidebarHeader slot="header" />
 		<div slot="links">
 			<!-- {#if $sidebar} -->
 			<!-- {#each pages as link} -->
@@ -63,12 +63,12 @@
 			<!-- {/if} -->
 		</div>
 	</Sidebar>
-	<MobileToggle bind:active={hidden} />
+	<MobileToggle bind:active={$sidebarState} />
 	<main
 		id="main"
 		class="page-content w-full ease-in-out duration-300 items-center justify-center relative"
-		class:content_hidden={!hidden}
-		class:shrink-0={!hidden}
+		class:content_hidden={!$sidebarState}
+		class:shrink-0={!$sidebarState}
 	>
 		<slot />
 	</main>
@@ -76,7 +76,7 @@
 
 <style type="less">
 	.app-layout {
-		transition: all .3s ease-in-out;
+		transition: all 0.3s ease-in-out;
 		background-color: white;
 		&.dark {
 			background-color: #0d1117;

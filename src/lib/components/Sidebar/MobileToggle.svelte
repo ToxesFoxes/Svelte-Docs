@@ -15,16 +15,16 @@
 		top: 62px;
 		right: 0;
 		left: 0;
-        bottom: 0;
+		bottom: 0;
 		background: rgba(0, 0, 0, 0.5);
 		z-index: 20;
 		opacity: 0;
 		transition: all 0.3s;
 		pointer-events: none;
-        
+
 		&.visible {
 			opacity: 1;
-            left: 301px;
+			left: 301px;
 			pointer-events: all;
 		}
 	}

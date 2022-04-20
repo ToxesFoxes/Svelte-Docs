@@ -1,6 +1,6 @@
 {
-	"name": "test",
-	"version": "0.0.1",
+	"name": "svelte-ic-docs",
+	"version": "2.1.0",
 	"scripts": {
 		"dev": "svelte-kit dev",
 		"dev-host": "svelte-kit dev --host",
@@ -56,6 +56,7 @@
 	"type": "module",
 	"dependencies": {
 		"@jsdevtools/rehype-toc": "^3.0.2",
-		"animejs": "^3.2.1"
+		"animejs": "^3.2.1",
+		"svelte-i18n": "^3.4.0"
 	}
 }
