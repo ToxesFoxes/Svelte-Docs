@@ -57,6 +57,7 @@
 	"dependencies": {
 		"@jsdevtools/rehype-toc": "^3.0.2",
 		"animejs": "^3.2.1",
-		"svelte-i18n": "^3.4.0"
+		"svelte-i18n": "^3.4.0",
+		"svelte-kit-cookie-session": "^2.1.3"
 	}
 }

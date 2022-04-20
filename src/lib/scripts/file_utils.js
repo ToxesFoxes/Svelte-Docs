@@ -1,7 +1,12 @@
 export async function loadStaticDocsFile(file_path) {
     const env = import.meta.env
     const url = `${env['VITE_APP_URL']}/${env['VITE_STATIC_DOCS_PATH']}/${file_path}`
-    const response = await fetch(url)
+    let response
+    try {
+        response = await fetch(url)
+    } catch (e) {
+        console.log(e)
+    }
 
     return {
         status: response.status,

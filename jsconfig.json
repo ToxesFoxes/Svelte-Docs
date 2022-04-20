@@ -5,7 +5,8 @@
 		"paths": {
 			"$SD/*": ["static-docs/*"],
 			"$store/*": ["src/stores/*"],
-			"$lib/*": ["src/lib/*"]
+			"$lib/*": ["src/lib/*"],
+			"$api/*": ["src/api/*"]
 		}
 	}
 }

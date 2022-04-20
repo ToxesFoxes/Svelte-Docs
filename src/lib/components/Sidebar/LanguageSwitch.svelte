@@ -4,16 +4,14 @@
 	import { get } from 'svelte/store';
 	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
-	var url = null;
-
-	onMount(() => {
-		get(Dlanguages);
-		languages.set($Dlanguages);
-		get(language);
-		url = window.location.href;
-	});
-	function switchLanguage(lang, index) {
-		language.set(lang.code);
+	import { readDocsConfig } from '$lib/scripts/file_utils';
+	export var url = null;
+	// onMount(() => {
+	// 	get(Dlanguages);
+	// 	languages.set($Dlanguages);
+	// 	get(language);
+	// });
+	function updateUrl(lang) {
 		console.log(url);
 		// docs/[lang]/[slug] replace lang in url
 		if (url.includes('docs/')) {
@@ -22,15 +20,30 @@
 			url = `/`;
 		}
 		goto(url);
-		console.log($Dlanguages);
-		console.log($language);
 	}
+	async function test(lang) {
+		await fetch('/api/language', {
+			headers: { 'content-type': 'application/json' },
+			method: 'POST',
+			body: JSON.stringify({ lang: lang.code })
+		});
+		updateUrl(lang);
+	}
+	let config;
+	let langs = [];
+	onMount(async () => {
+		config = await readDocsConfig();
+		langs = config.languages;
+		console.log(config);
+		url = window.location.href;
+	});
 </script>
 
-<div>
-	{#each $Dlanguages as lang, index}
-		<div on:click={(event) => switchLanguage(lang, index)}>
-			{lang.code}, {lang.name}, {lang.path}
+<div class="language-switch">
+	<!-- {@debug url} -->
+	{#each langs as lang, index}
+		<div on:click={(event) => test(lang)}>
+			{lang.name}
 		</div>
 	{/each}
 </div>

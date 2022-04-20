@@ -32,7 +32,7 @@
 <ul>
 	{#each posts as { path }}
 		<li>
-			<a href={`${path.replace('.md', '')}`}>{path.replace('.md', '')}</a>
+			<a href={`${path.replace('.md', '').replace('static-docs', 'docs')}`}>{path.replace('.md', '')}</a>
 		</li>
 	{/each}
 </ul>

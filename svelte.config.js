@@ -39,6 +39,7 @@ const config = {
 					"$SD": path.resolve("./static-docs/"),
 					"$store": path.resolve("./src/stores/"),
 					"$lib": path.resolve("./src/lib/"),
+					"$api": path.resolve("./src/api/"),
 				}
 			}
 		}

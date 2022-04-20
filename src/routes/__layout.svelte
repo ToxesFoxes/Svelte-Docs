@@ -1,4 +1,19 @@
 <script context="module">
+	export async function load({ params, fetch, session, stuff }) {
+		const sidebar = await fetch('/api/sidebar', {
+			headers: { 'content-type': 'application/json' },
+			method: 'POST',
+			body: JSON.stringify({ lang: session.lang })
+		});
+		const data = await sidebar.json();
+		console.log(data);
+		// console.log(session);
+		return {
+			props: {
+				session
+			}
+		};
+	}
 </script>
 
 <script>
@@ -23,22 +38,24 @@
 	// Script
 	let temp = {};
 	get(theme);
-	export async function load() {
-		return await update().then(() => {
-			get(languages);
-			get(language);
-			console.log(language);
-			$languages.forEach((lang, index) => {
-				loadStaticDocsFile(lang.path).then((data) => {
-					if (lang.code == $language) temp = JSON.parse(data.result).pages;
-				});
-			});
-		});
-	}
-	onMount(() => {
+	// export async function load(args) {
+	// return await update().then(() => {
+	// console.log('args');
+	// get(languages);
+	// get(language);
+	// console.log(language);
+	// $languages.forEach((lang, index) => {
+	// 	loadStaticDocsFile(lang.path).then((data) => {
+	// 		if (lang.code == $language) temp = JSON.parse(data.result).pages;
+	// 	});
+	// });
+	// });
+	// }
+	onMount(async (asd) => {
 		let isSysDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 		$isDark = $theme == 'system' ? (isSysDark ? true : false) : $theme == 'dark' ? true : false;
 	});
+	export let session;
 </script>
 
 <svelte:head>
@@ -56,6 +73,7 @@
 	<Sidebar bind:active={$sidebarState}>
 		<SidebarHeader slot="header" />
 		<div slot="links">
+			{session.lang}
 			<!-- {#if $sidebar} -->
 			<!-- {#each pages as link} -->
 			<!-- {link.slug} -->
