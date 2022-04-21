@@ -38,6 +38,7 @@
 			url = `/`;
 		}
 		goto(url);
+		window.location.reload();
 	}
 	async function test(lang) {
 		await fetch('/api/language', {
