@@ -1,4 +1,3 @@
-
 export async function post(event): Promise<any> {
     const locals = event.locals
     const data = await event.request.json()

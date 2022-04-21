@@ -3,7 +3,7 @@
 		const sidebar = await fetch('/api/sidebar', {
 			headers: { 'content-type': 'application/json' },
 			method: 'POST',
-			body: JSON.stringify({ lang: session.lang })
+			body: JSON.stringify({ lang: 'en' })
 		});
 		const data = await sidebar.json();
 		console.log(data);
@@ -73,7 +73,7 @@
 	<Sidebar bind:active={$sidebarState}>
 		<SidebarHeader slot="header" />
 		<div slot="links">
-			{session.lang}
+			<!-- {session.lang} -->
 			<!-- {#if $sidebar} -->
 			<!-- {#each pages as link} -->
 			<!-- {link.slug} -->
