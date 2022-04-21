@@ -1,7 +1,7 @@
 <script>
 	import { isDark } from '$store/default';
 	export let active = false;
-	import Icon from './InnerCoreIcon.svelte';
+	import Icon from '../Icons/InnerCore.svelte';
 </script>
 
 <div class="app-header backdrop-blur-sm" class:hide-bg-opacity={active} class:dark={$isDark}>
@@ -13,6 +13,7 @@
 	</div>
 	<div class="app-header-content right">
 		<slot name="right-before" />
+		<slot name="right" />
 		<slot name="right-after" />
 	</div>
 </div>

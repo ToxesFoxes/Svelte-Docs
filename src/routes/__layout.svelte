@@ -22,11 +22,12 @@
 	// Components
 	import Sidebar from '$lib/components/Sidebar/Panel.svelte';
 	import SidebarToggle from '$lib/components/Sidebar/Toggle.svelte';
-	import AppHeader from '$lib/components/AppHeader.svelte';
+	import AppHeader from '$lib/components/Header/Panel.svelte';
 	import MobileToggle from '$lib/components/Sidebar/MobileToggle.svelte';
 	import SidebarHeader from '$lib/components/Sidebar/Header.svelte';
-	import ThemeSwitch from '$lib/components/Theme/Switch.svelte';
 	import PageList from '$lib/components/Sidebar/Pages/List.svelte';
+	import SettingsButton from '$lib/components/Modals/CloseButton.svelte';
+	import SettingsModal from '$lib/components/Modals/Settings/Modal.svelte';
 
 	// Store
 	// import { update } from '$store/default_config';
@@ -34,7 +35,7 @@
 	// import { loadStaticDocsFile } from '../lib/scripts/file_utils';
 	import { onMount } from 'svelte';
 	import { language, languages } from '$store/config';
-	import { theme, isDark, sidebarState } from '$store/default';
+	import { theme, isDark, sidebarState, settingsState } from '$store/default';
 
 	// Script
 	get(theme);
@@ -56,7 +57,7 @@
 <div class="app-layout flex flex-col w-full min-h-screen" class:dark={$isDark}>
 	<AppHeader bind:active={$sidebarState}>
 		<SidebarToggle bind:active={$sidebarState} slot="left-before" />
-		<ThemeSwitch slot="right-after" />
+		<SettingsButton slot="right-after" img="/images/settings.svg" bind:option={$settingsState} />
 	</AppHeader>
 	<Sidebar bind:active={$sidebarState}>
 		<SidebarHeader slot="header" />
@@ -70,6 +71,7 @@
 		</PageList>
 	</Sidebar>
 	<MobileToggle bind:active={$sidebarState} />
+	<SettingsModal bind:open={$settingsState}/>
 	<main
 		id="main"
 		class="page-content w-full ease-in-out duration-300 items-center justify-center relative"

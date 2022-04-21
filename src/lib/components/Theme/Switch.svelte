@@ -1,9 +1,10 @@
 <script>
 	import { isDark, theme } from '$store/default';
 	import Toggle from './Input.svelte';
+	export let bordered = false;
 </script>
 
-<div class="theme-switch" class:dark={$isDark}>
+<div class="theme-switch" class:dark={$isDark} class:bordered>
 	<!-- <select bind:value={$theme} on:change={updateTheme}>
 		<option value="system">System</option>
 		<option value="light">Light</option>

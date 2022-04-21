@@ -1,6 +1,12 @@
 {
-  "files.exclude": {
-    "node_modules": true,
-    ".vscode": true
-  }
+	"files.exclude": {
+		"node_modules": true,
+		".vscode": true
+	},
+	"editor.insertSpaces": false,
+	"editor.tabCompletion": "off",
+	"prettier.tabWidth": 4,
+	"diffEditor.codeLens": true,
+	"editor.stickyTabStops": true,
+	"prettier.useTabs": true
 }
