@@ -5,7 +5,7 @@
 </script>
 
 <div
-	class="settings-button"
+	class="close-button"
 	class:dark={$isDark}
 	class:active={option}
 	on:click={() => {
@@ -16,13 +16,15 @@
 </div>
 
 <style type="less">
-	.settings-button {
+	.close-button {
 		width: 40px;
 		height: 40px;
 		padding: 4px;
 		display: flex;
 		justify-content: center;
 		align-items: center;
+		user-select: none;
+		cursor: pointer;
 		img {
 			width: 26px;
 			height: 26px;

@@ -30,6 +30,8 @@
 		align-items: center;
 		border-radius: 50%;
 		position: relative;
+		user-select: none;
+		cursor: pointer;
 		.current-style {
 			width: 26px;
 			height: 26px;
