@@ -8,7 +8,22 @@
 	export let isChild = false;
 	let isOpen = false;
 	let url;
-
+	function swapPage(slug) {
+		// console.log(url);
+		// docs/[lang]/[slug] replace lang in url
+		let regex_lang = /docs\/([a-z]{2})\/([a-z0-9-]*$)/;
+		let regex = /docs\/([a-z0-9-]*$)/;
+		let match_lang = url.match(regex_lang);
+		let match = url.match(regex);
+		if (match_lang) {
+			url = url.replace(regex_lang, `docs/${match_lang[1]}/${slug}`);
+		} else if (match) {
+			url = url.replace(regex, `docs/${slug}`);
+		} else {
+			url = `/docs/${slug}`;
+		}
+		goto(url);
+	}
 	// function swapPage(slug) {
 	// 	// console.log(url);
 	// 	// docs/[lang]/[slug] replace lang in url
@@ -41,7 +56,12 @@
 		</div>
 	{:else}
 		<div class="item" class:child={isChild} class:dark={isDark}>
-			<div class="item-title" on:click={() => {/*swapPage(item.slug)*/}}>
+			<div
+				class="item-title"
+				on:click={() => {
+					swapPage(item.slug);
+				}}
+			>
 				{#if isChild}
 					<span class="index">{index + 1}. </span>
 				{/if}
@@ -104,10 +124,11 @@
 	.item {
 		margin: 0.25rem;
 		padding: 0.25rem 0.5rem;
-		cursor: pointer;
 		transition: all 0.1s ease-in-out;
 		border-radius: 4px;
 		color: black;
+		cursor: pointer;
+		user-select: none;
 
 		&:hover {
 			background-color: #7d7d7d24;
@@ -117,6 +138,11 @@
 		}
 		&.dark {
 			color: white;
+		}
+	}
+	@media (hover: hover) {
+		.item:hover {
+			background: pink;
 		}
 	}
 </style>

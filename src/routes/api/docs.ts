@@ -1,5 +1,6 @@
 
 import { process } from '$lib/scripts/load_markdown'
+import { findSlug } from '$lib/scripts/pages_parser'
 import { loadJsonFile, loadFile } from './utils'
 export async function get(event): Promise<any> {
     const lang = event.url.searchParams.get('lang') ?? (event.locals.session.data?.lang ?? 'en')
@@ -17,7 +18,7 @@ export async function get(event): Promise<any> {
         pages = await loadJsonFile(event.url.origin + `/static-docs/${pagesPath.path}`)
         console.log('pages:', pages)
         if (pages) {
-            page_data = pages.pages.find(page => page.slug == slug)
+            page_data = findSlug(pages.pages, slug)
             console.log('page_data', page_data)
             if (page_data) {
                 // console.log('find:',pages.pages.find(page => page.slug == slug))

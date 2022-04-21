@@ -45,6 +45,7 @@
 			border-color: rgb(82, 82, 82);
 		}
 		.sidebar-content {
+			min-width: 300px;
 		}
 		.sidebar-links {
 			height: 100vh;

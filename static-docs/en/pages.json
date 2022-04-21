@@ -10,7 +10,7 @@
 		},
 		{
 			"group": true,
-			"title": "Тест групп",
+			"title": "Group Test",
 			"children": [
 				{
 					"slug": "test-page-markdown-group",
