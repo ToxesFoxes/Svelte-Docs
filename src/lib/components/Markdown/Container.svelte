@@ -13,6 +13,6 @@
 		margin: 0 auto;
 		max-width: 90%;
 		background: transparent !important;
-		transition: all .1s ease-in-out;
+		// transition: all .1s ease-in-out;
 	}
 </style>

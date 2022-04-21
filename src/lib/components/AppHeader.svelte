@@ -28,9 +28,13 @@
 		justify-content: center;
 		height: 62px;
 		padding: 4px;
-		background-color: rgba(255, 255, 255, 0.5);
+		background: linear-gradient(
+			to bottom,
+			rgba(255, 255, 255, 1) 0%,
+			rgba(255, 255, 255, 0.25) 90%
+		);
 		border-bottom: 1px solid lightgray;
-		transition: all 0.3s ease-in-out;
+		// transition: all 0.3s ease-in-out;
 		.app-header-content {
 			width: inherit;
 			align-items: center;
@@ -64,7 +68,7 @@
 			}
 		}
 		&.dark {
-			background-color: #161b22;
+			background: linear-gradient(to bottom, rgba(22, 27, 34, 1) 0%, rgba(22, 27, 34, 0.25) 90%);
 			border-color: rgb(82, 82, 82);
 			.app-header-name {
 				color: white;
@@ -73,8 +77,7 @@
 	}
 	@media (max-width: 768px) {
 		.app-header {
-			.hide-bg-opacity {
-				background-color: white;
+			&.hide-bg-opacity {
 				box-shadow: 0px 2px 4px rgba(0, 0, 0, 0);
 			}
 		}

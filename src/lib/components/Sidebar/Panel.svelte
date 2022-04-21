@@ -29,6 +29,8 @@
 		top: 62px;
 		background-color: white;
 		border-right: 1px solid lightgray;
+		min-width: 300px;
+		max-width: 300px;
 		&.unhide {
 			transform: translateX(0);
 		}
@@ -43,7 +45,6 @@
 			border-color: rgb(82, 82, 82);
 		}
 		.sidebar-content {
-			min-width: 300px;
 		}
 		.sidebar-links {
 			height: 100vh;

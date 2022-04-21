@@ -11,6 +11,15 @@ const sessionHandler = handleSession({
 })
 
 export const handle = sequence(sessionHandler, async ({ resolve, event }) => {
+    // console.log(`session: `, event.locals.session)
+    // /*
+    if(!event.locals.session.data){
+        event.locals.session.data = {
+            lang: 'en'
+        }
+        event.locals.session.refresh()
+    }
+    // */
     return await resolve(event, {
         transformPage: ({ html }) => {
             const lang = event.locals.session.data?.lang ?? "en"

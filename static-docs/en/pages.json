@@ -7,6 +7,19 @@
 			"description": "This is a test page",
 			"keywords": ["markdown", "test", "page", "aaaa"],
 			"file": "test.md"
+		},
+		{
+			"group": true,
+			"title": "Тест групп",
+			"children": [
+				{
+					"slug": "test-page-markdown-group",
+					"title": "Testing markdown from groupsdzfhgjhkfjlg",
+					"description": "This is a test page from group",
+					"keywords": ["markdown", "test", "page", "aaaa"],
+					"file": "test.md"
+				}
+			]
 		}
 	]
 }

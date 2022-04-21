@@ -23,7 +23,7 @@
 </script>
 
 <script>
-	import '../../../app.css';
+	import '../../app.css';
 	import GithubCorner from '$lib/components/Markdown/GithubCorner.svelte';
 	import { goto } from '$app/navigation';
 	import { onMount } from 'svelte';

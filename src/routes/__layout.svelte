@@ -5,8 +5,8 @@
 			method: 'POST',
 			body: JSON.stringify({ lang: 'en' })
 		});
-		const data = await sidebar.json();
-		console.log(data);
+		// const data = await sidebar.json();
+		// console.log(data);
 		// console.log(session);
 		return {
 			props: {
@@ -26,31 +26,18 @@
 	import MobileToggle from '$lib/components/Sidebar/MobileToggle.svelte';
 	import SidebarHeader from '$lib/components/Sidebar/Header.svelte';
 	import ThemeSwitch from '$lib/components/Theme/Switch.svelte';
+	import PageList from '$lib/components/Sidebar/Pages/List.svelte';
 
 	// Store
-	import { update } from '$store/default_config';
+	// import { update } from '$store/default_config';
 	import { get } from 'svelte/store';
-	import { loadStaticDocsFile } from '../lib/scripts/file_utils';
+	// import { loadStaticDocsFile } from '../lib/scripts/file_utils';
 	import { onMount } from 'svelte';
 	import { language, languages } from '$store/config';
 	import { theme, isDark, sidebarState } from '$store/default';
 
 	// Script
-	let temp = {};
 	get(theme);
-	// export async function load(args) {
-	// return await update().then(() => {
-	// console.log('args');
-	// get(languages);
-	// get(language);
-	// console.log(language);
-	// $languages.forEach((lang, index) => {
-	// 	loadStaticDocsFile(lang.path).then((data) => {
-	// 		if (lang.code == $language) temp = JSON.parse(data.result).pages;
-	// 	});
-	// });
-	// });
-	// }
 	onMount(async (asd) => {
 		let isSysDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 		$isDark = $theme == 'system' ? (isSysDark ? true : false) : $theme == 'dark' ? true : false;
@@ -59,6 +46,7 @@
 </script>
 
 <svelte:head>
+	<meta name="theme-color" content={$isDark ? '#161b22' : '#ffffff'} />
 	<meta name="color-scheme" content={$theme == 'system' ? 'light dark' : $theme} />
 	<link rel="stylesheet" href={`/static/css/github-markdown-${$isDark ? 'dark' : 'light'}.css`} />
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Overpass" />
@@ -72,14 +60,14 @@
 	</AppHeader>
 	<Sidebar bind:active={$sidebarState}>
 		<SidebarHeader slot="header" />
-		<div slot="links">
-			<!-- {session.lang} -->
+		<PageList slot="links">
+			{session?.lang}
 			<!-- {#if $sidebar} -->
 			<!-- {#each pages as link} -->
 			<!-- {link.slug} -->
 			<!-- {/each} -->
 			<!-- {/if} -->
-		</div>
+		</PageList>
 	</Sidebar>
 	<MobileToggle bind:active={$sidebarState} />
 	<main
@@ -94,7 +82,7 @@
 
 <style type="less">
 	.app-layout {
-		transition: all 0.3s ease-in-out;
+		// transition: all 0.3s ease-in-out;
 		background-color: white;
 		&.dark {
 			background-color: #0d1117;
